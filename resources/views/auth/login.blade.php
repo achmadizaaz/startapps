@@ -15,6 +15,7 @@
   
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+                        
                     <div class="d-flex align-items-center mb-5 pb-1">
                       <img src="{{ asset('/img/Universitas Merdeka Pasuruan.webp') }}" alt="" width="130px" height="130px">
                       <span class="h2 fw-bold mb-0 text-center" style="color:#1d1819">UNIVERSITAS MERDEKA PASURUAN</span>
