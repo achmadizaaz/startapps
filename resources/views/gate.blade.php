@@ -3,7 +3,7 @@
 <section class="vh-100" style="background-color: #343232;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center" >
-            <div class="col col-xl-10" style="background-color: #3d2cf3;">
+            <div class="col col-xl-10" style="background-color: #fff;">
                 <div class="row">
                     <div class="col-6 col-xl-6" >
                         <img src="{{ asset('/img/Universitas Merdeka Pasuruan.webp') }}" alt="" width="130px" height="130px" />
