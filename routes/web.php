@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administrasi\AdministrasiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('gate');
+    return view('welcome');
 });
+
+
+// Administrasi Aplikasi
+Route::controller(AdministrasiController::class)->prefix('administrasi')->group(function(){
+    Route::get('/', 'index')->name('admin.index');
+    Route::get('/users', 'show')->name('admin.users');
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
