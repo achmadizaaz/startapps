@@ -11,7 +11,7 @@
                 <thead>
                     <tr>
                         <th>Nama Pengguna</th>
-                        <th>Username</th>
+                        <th>Email</th>
                         <th>Office</th>
                         <th>Login Terakhir</th>
                         <th>Ip Address</th>
