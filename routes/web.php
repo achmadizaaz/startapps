@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::controller(AdministrasiController::class)->prefix('administrasi')->group(function(){
     Route::get('/', 'index')->name('admin.index');
     
-    Route::get('/users', 'userIndex')->name('admin.users');
+    Route::get('/users', 'userIndex')->name('admin.user');
     Route::get('/users/create', 'userCreate')->name('admin.user.create');
     Route::post('/users/create', 'userStore')->name('admin.user.store');
     Route::get('/users/show/{slug}', 'userShow')->name('admin.user.show');

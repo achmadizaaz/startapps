@@ -5,8 +5,14 @@
         
 
         <div class="card">
-            <div class="card-header bg-secondary-subtle">
+            <div class="card-header d-flex justify-content-between align-middle bg-secondary-subtle">
                 <h5>Data Pengguna</h5>
+                <div class="text-end">
+                    <a href="{{ route('admin.user') }}" class="btn btn-sm btn-info text-white">Kembali ke Daftar</a>
+                    <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-success">Tambah Baru</a>
+                    <button class="btn btn-sm btn-warning text-white">Edit</button>
+                    <button class="btn btn-sm btn-danger">Hapus</button>
+                </div>
             </div>
             <div class="card-body">
                 <div class="user-detail mb-4 text-secondary">
@@ -82,10 +88,7 @@
                         </div>
                         {{--  END Kolom Form Kanan --}}
 
-                        <div class="mt-3 text-end">
-                            <a href="{{ route('admin.users') }}" class="btn btn-info text-white"><i class="bi bi-arrow-left me-1"></i> Kembali ke Daftar</a>
-                            <button class="btn btn-success"><i class="bi bi-save2 me-1"></i> Simpan</button>
-                        </div>
+                        
                     </div>
                 </form>
             </div>
