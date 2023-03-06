@@ -26,36 +26,42 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'delete user-information']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'admin']);
-        $role1->givePermissionTo('create user-information');
-        $role1->givePermissionTo('read user-information');
-        $role1->givePermissionTo('update user-information');
-        $role1->givePermissionTo('delete user-information');
+        $role1 = Role::create(['name' => 'Super Administrator']);
 
-        $role2 = Role::create(['name' => 'member']);
+        $role2 = Role::create(['name' => 'Administrator']);
+        $role2->givePermissionTo('create user-information');
         $role2->givePermissionTo('read user-information');
+        $role2->givePermissionTo('update user-information');
+        $role2->givePermissionTo('delete user-information');
 
-        $role3 = Role::create(['name' => 'super-admin']);
+        $role3 = Role::create(['name' => 'Unit']);
+        $role3->givePermissionTo('read user-information');
+
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
         $user = \App\Models\User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@unmerpas.ac.id',
+            'name' => 'Super Administrator',
+            'email' => 'superadmin@unmerpas.ac.id',
+            'slug' =>'super-administrator',
         ]);
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Member User',
-            'email' => 'member@unmerpas.ac.id',
+            'name' => 'Admin User',
+            'email' => 'admin@unmerpas.ac.id',
+            'slug'=> 'admin-user',
         ]);
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Super-Admin User',
-            'email' => 'superadmin@unmerpas.ac.id',
+            'name' => 'Unit User',
+            'email' => 'unit@unmerpas.ac.id',
+            'slug'=> 'unit-user',
         ]);
         $user->assignRole($role3);
+
+       
          
     }
 }

@@ -22,9 +22,11 @@ Route::get('/', function () {
 // Administrasi Aplikasi
 Route::controller(AdministrasiController::class)->prefix('administrasi')->group(function(){
     Route::get('/', 'index')->name('admin.index');
-    Route::get('/users', 'show')->name('admin.users');
-    Route::get('/users/create', 'create')->name('admin.users.create');
-    Route::post('/users/create', 'store')->name('admin.users.store');
+    
+    Route::get('/users', 'userIndex')->name('admin.users');
+    Route::get('/users/create', 'userCreate')->name('admin.user.create');
+    Route::post('/users/create', 'userStore')->name('admin.user.store');
+    Route::get('/users/show/{slug}', 'userShow')->name('admin.user.show');
 });
 
 
