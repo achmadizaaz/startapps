@@ -63,7 +63,14 @@ class AdministrasiController extends Controller
     {
         $user = User::where('slug', $slug)->with('roles')->first();
 
-    //    dd($user);
         return view('administrasi.user.show', compact('user'));
     }
+
+    public function userEdit($slug)
+    {
+        $user = User::where('slug', $slug)->with('roles')->first();
+
+        return view('administrasi.user.edit', compact('user'));
+    }
+
 }

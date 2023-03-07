@@ -11,7 +11,7 @@
             <table id="example" class="table table-bordered table-striped dataTable" style="width:100%">
                 <thead class="bg-primary text-white">
                     <tr>
-                        <th>No</th>
+                        <th class="text-center">No</th>
                         <th>Nama Pengguna</th>
                         <th>Email</th>
                         <th>Login Terakhir</th>
@@ -22,7 +22,7 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td>{{$loop->iteration }}</td>
+                            <td class="text-center">{{$loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
@@ -54,9 +54,9 @@
                         
                     @endforeach
                 </tbody>
-                <tfoot>
+                <tfoot class="bg-secondary text-white">
                     <tr>
-                        <th>No</th>
+                        <th class="text-center"ss>No</th>
                         <th>Nama Pengguna</th>
                         <th>Email</th>
                         <th>Login Terakhir</th>
