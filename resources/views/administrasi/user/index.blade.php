@@ -7,7 +7,7 @@
             <a href="{{ route('admin.user.create') }}" class="btn btn-success">Tambah Pengguna</a>
         </div>
         <div class=" bg-light p-4 rounded-3 shadow">
-
+            {{ session('kodeUnit') }}
             <table id="example" class="table table-bordered table-striped dataTable" style="width:100%">
                 <thead class="bg-primary text-white">
                     <tr>

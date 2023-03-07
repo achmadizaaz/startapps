@@ -18,6 +18,14 @@ class AdministrasiController extends Controller
         $this->middleware(['role:Super Administrator|Administrator']);
     }
 
+    public function userSession(Request $request)
+    {
+        $request->session()->put('kodeUnit', $request->tesSessionUnit);
+        $request->session()->put('kodeRole', $request->tesSessionRole);
+        
+        return view('administrasi.index');
+    }
+
     public function index()
     {
 

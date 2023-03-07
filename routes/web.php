@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Administrasi\AdministrasiController;
+use App\Http\Controllers\Administrasi\UnitController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,12 +28,26 @@ Route::controller(AdministrasiController::class)->prefix('administrasi')->group(
     Route::get('/users/create', 'userCreate')->name('admin.user.create');
     Route::post('/users/create', 'userStore')->name('admin.user.store');
     Route::get('/users/show/{slug}', 'userShow')->name('admin.user.show');
+
+
+    Route::get('/unit', 'index')->name('admin.user.show');
+
+    // Test Store Session
+    Route::post('/users', 'userSession')->name('admin.session');
+});
+
+Route::controller(UnitController::class)->prefix('administrasi')->group(function(){
+    Route::get('/unit', 'index')->name('admin.unit');
+    Route::get('/unit/create', 'create')->name('admin.unit.create');
+    Route::post('/unit/store', 'store')->name('admin.unit.store');
+    Route::get('/unit/{slug}/edit', 'edit')->name('admin.unit.edit');
+    Route::put('/unit/{slug}/update', 'update')->name('admin.unit.update');
 });
 
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('gate');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

@@ -2,8 +2,6 @@
 {{-- @section('title', 'Dashboard Administrasi') --}}
 @section('content')
     <div class="container p-2 mb-3">
-        
-
         <div class="card">
             <div class="card-header d-flex justify-content-between align-middle bg-secondary-subtle">
                 <h5>Data Pengguna</h5>
