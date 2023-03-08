@@ -67,7 +67,7 @@
 
 
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script type="text/javascript">
  
     $('.show_confirm').click(function(event) {
@@ -85,11 +85,7 @@
                 confirmButtonText: 'Hapus Data'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
+                    form.submit();
                 }
             })
      });

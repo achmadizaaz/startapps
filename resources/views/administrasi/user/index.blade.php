@@ -39,16 +39,31 @@
                                 <span class="fst-italic">-</span>
                              @endempty
                             </td>
-                            <td>
-                                <a href="{{ route('admin.user.show', $user->slug) }}" class="btn btn-sm btn-info text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
+                            <td class="d-flex ">
+                                <a href="{{ route('admin.user.show', $user->slug) }}" class="btn btn-sm btn-info text-white me-1" title="Detail">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-warning text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Katasandi">
-                                    <i class="bi bi-recycle"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-danger text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus">
-                                    <i class="bi bi-trash3"></i>
-                                </a>
+
+                                <form method="POST" action="{{ route('admin.user.reset', $user->id) }}">
+                                    @csrf
+                                    {{-- @method('PUT') --}}
+                                    <input name="_method" type="hidden" value="PUT">
+                                    <input type="hidden" id="namaUnit" value="{{ $user->name }}" data-nama="{{ $user->name }}">
+                                    <button type="submit" class="btn btn-sm btn-warning btn-flat reset_confirm me-1 text-white" title="Hapus">
+                                        <i class="bi bi-recycle"></i>
+                                    </button>
+                                </form>
+                                
+
+
+                                <form method="POST" action="{{ route('admin.user.destroy', $user->id) }}">
+                                    @csrf
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" id="namaUnit" value="{{ $user->name }}" data-nama="{{ $user->name }}">
+                                    <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         
@@ -77,4 +92,50 @@
         $('#example').DataTable();
     });
    </script>
+
+
+<script type="text/javascript">
+    $('.delete_confirm').click(function(event) {
+         let form =  $(this).closest("form");
+         let name = $(this).data("name");
+         let nameValue = document.getElementById("namaUnit").value;
+         event.preventDefault();
+           Swal.fire({
+                title: 'Are you sure?',
+                text: "Apakah anda yakin ingin menghapus",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+     });
+
+
+     
+     $('.reset_confirm').click(function(event) {
+         let form =  $(this).closest("form");
+         let name = $(this).data("name");
+         let nameValue = document.getElementById("namaUnit").value;
+         event.preventDefault();
+           Swal.fire({
+                title: 'Reset Katasandi',
+                text: "Apakah anda yakin ingin menghapus",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Reset Sandi'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        });    
+ 
+</script>
 @endsection

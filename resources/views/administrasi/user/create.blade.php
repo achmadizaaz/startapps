@@ -16,32 +16,41 @@
                     @csrf
                     <div class="row">
                         {{-- Kolom Form Sebelah Kiri  --}}
-                        <div class="col-md-6 fw-bold">
+                        <div class="col-md-6">
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
-                                    <label for="name" class="form-label" >Nama Pengguna  <span class="text-danger">*</span> </label>
+                                    <label for="name" class="form-label fw-bold" >Nama Pengguna  <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nama Pengguna">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Nama Pengguna">
+                                    @error('name')
+                                     <small class="text-danger fst-italic">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
-                                    <label for="email" class="form-label" >Username / Email  <span class="text-danger">*</span> </label>
+                                    <label for="email" class="form-label fw-bold" >Username / Email  <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="email@unmerpas.ac.id">
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="email@unmerpas.ac.id">
+                                    @error('email')
+                                    <small class="text-danger fst-italic">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
-                                    <label for="password" class="form-label" >Sandi Pengguna <span class="text-danger">*</span> </label>
+                                    <label for="password" class="form-label fw-bold" >Sandi Pengguna <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="********">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="********">
+                                    @error('password')
+                                    <small class="text-danger fst-italic">{{ $message }}</small>
+                                   @enderror
                                 </div>
                             </div>
-                            <div class="row py-2 border-bottom">
+                            {{-- <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
                                     <label for="role" class="col-md-6">Role <span class="text-danger">*</span></label>
                                 </div>
@@ -53,8 +62,15 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div> --}}
+                            <div class="row py-2 border-bottom">
+                                <div class="col-md-5">
+                                    <label for="pengawai" class="form-label fw-bold" >Pengawai/Dosen</label>
+                                </div>
+                                <div class="col-md-7" >
+                                    <input type="text" class="form-control" name="pengawai_id" value="{{ old('pengawai') }}">
+                                </div>
                             </div>
-                           
                         </div>
                         {{-- END Kolom Form Kiri --}}
 
@@ -69,14 +85,7 @@
                                     <input type="text" class="form-control" name="password_default" value="{{ old('password_default') }}">
                                 </div>
                             </div>
-                            <div class="row py-2 border-bottom">
-                                <div class="col-md-5">
-                                    <label for="pengawai" class="form-label" >Pengawai/Dosen</label>
-                                </div>
-                                <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="pengawai_id" value="{{ old('pengawai') }}">
-                                </div>
-                            </div>
+                           
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
                                     <label class="form-label" >Login terakhir</label>
@@ -97,7 +106,7 @@
                         {{--  END Kolom Form Kanan --}}
 
                         <div class="mt-3 text-end">
-                            <a href="{{ route('admin.users') }}" class="btn btn-info text-white"><i class="bi bi-arrow-left me-1"></i> Kembali ke Daftar</a>
+                            <a href="{{ route('admin.user') }}" class="btn btn-info text-white"><i class="bi bi-arrow-left me-1"></i> Kembali ke Daftar</a>
                             <button class="btn btn-success"><i class="bi bi-save2 me-1"></i> Simpan</button>
                         </div>
                     </div>

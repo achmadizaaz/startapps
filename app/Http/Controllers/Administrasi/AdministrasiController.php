@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrasi;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Administrasi\UserRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class AdministrasiController extends Controller
         return view('administrasi.user.create');
     }
 
-    public function userStore(Request $request)
+    public function userStore(UserRequest $request)
     {
         $now = Carbon::now();
         
@@ -62,7 +63,7 @@ class AdministrasiController extends Controller
             $user->assignRole($request->role);
         }
 
-        return redirect()->route('admin.user.index')->with('success', 'Pengguna berhasil ditambahkan');
+        return redirect()->route('admin.user')->with('success', 'Pengguna berhasil ditambahkan');
         
     }
 
@@ -79,6 +80,36 @@ class AdministrasiController extends Controller
         $user = User::where('slug', $slug)->with('roles')->first();
 
         return view('administrasi.user.edit', compact('user'));
+    }
+
+    public function userDestroy($id)
+    {
+        User::where('id', $id)->delete();
+
+        return redirect()->route('admin.user')->with('success', 'User telah dihapus');
+    }
+
+
+    public function userReset($id)
+    {
+        
+       $user = User::where('id', $id)->first();
+
+       if(empty($user->password_default)){
+        return redirect()->route('admin.user')->with('warning', 'Katasandi default belum ada');
+       }
+
+        // Make Hash Password Default
+       $user->sandi_default = Hash::make($user->password_default);
+
+       User::where('id', $id)->update([
+        'password' => $user->sandi_default
+       ]);
+
+        dd($user->sandi_default);
+
+       return redirect()->route('admin.user')->with('success', 'Reset katasandi berhasil');
+
     }
 
 }

@@ -22,15 +22,20 @@ Route::get('/', function () {
 
 // Administrasi Aplikasi
 Route::controller(AdministrasiController::class)->prefix('administrasi')->group(function(){
-    Route::get('/', 'index')->name('admin.index');
     
+    Route::get('/', 'index')->name('admin.index');
+
+
     Route::get('/users', 'userIndex')->name('admin.user');
     Route::get('/users/create', 'userCreate')->name('admin.user.create');
     Route::post('/users/create', 'userStore')->name('admin.user.store');
-    Route::get('/users/show/{slug}', 'userShow')->name('admin.user.show');
+    Route::get('/users/{slug}/show', 'userShow')->name('admin.user.show');
+    Route::get('/users/{slug}/edit', 'userEdit')->name('admin.user.edit');
+
+    Route::delete('/users/{slug}/delete', 'userDestroy')->name('admin.user.destroy');
+    Route::put('/users/{id}/reset', 'userReset')->name('admin.user.reset');
 
 
-    Route::get('/unit', 'index')->name('admin.user.show');
 
     // Test Store Session
     Route::post('/users', 'userSession')->name('admin.session');

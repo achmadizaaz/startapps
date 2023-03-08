@@ -2,20 +2,11 @@
 {{-- @section('title', 'Dashboard Administrasi') --}}
 @section('content')
     <div class="container p-2 mb-3">
-<<<<<<< HEAD
         <div class="card">
             <div class="card-header d-flex justify-content-between align-middle bg-secondary-subtle">
                 <h5>Data Pengguna</h5>
-=======
-        
-
-        <div class="card mb-3 shadow">
-            <div class="card-header d-flex justify-content-between bg-secondary-subtle">
-                <h5 class="d-flex align-items-center">Data Pengguna</h5>
->>>>>>> a4c765e324d7b62d3d1664faf0f8a87ef7f4ecda
                 <div class="text-end">
                     <a href="{{ route('admin.user') }}" class="btn btn-md btn-info text-white">Kembali ke Daftar</a>
-                    <a href="{{ route('admin.user.create') }}" class="btn btn-md btn-success">Tambah Baru</a>
                     <a href="{{ route('admin.user.edit', $user->slug) }}" class="btn btn-md btn-warning text-white">Edit</a>
                     <button class="btn btn-md btn-danger">Hapus</button>
                 </div>
@@ -25,9 +16,23 @@
                 <div class="user-detail mb-4 text-secondary">
                     Detail Pengguna (user)
                 </div>
-                    <div class="row">
+                    <div class="row ">
+                        <div class="col-2 d-flex flex-column flex-shrink-0 border-end border-2 border-light">
+                            <ul class="nav nav-pills flex-column mb-auto fw-bold" style="font-size:12px">
+                                <li class="nav-item bg-dark border-start border-3 border-primary">
+                                    <a href="#" class="nav-link text-white ">
+                                        Data Pengguna
+                                    </a>
+                                </li>
+                                <li class="nav-item bg-secondary border-start border-3 border-secondary hover ">
+                                    <a href="#" class="nav-link text-white">
+                                    Role Pengguna
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                         {{-- Kolom Form Sebelah Kiri  --}}
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5 fw-bold">
                                     <label for="name" class="form-label" >Nama Pengguna  </label>
@@ -65,7 +70,7 @@
                         {{-- END Kolom Form Kiri --}}
 
                         {{--  Kolom Form Kanan --}}
-                        <div class="col-md-6">                          
+                        <div class="col-md-5">                          
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5 fw-bold">
                                     <label for="password_default" class="form-label" >Sandi Default</label>
@@ -98,7 +103,7 @@
             </div>
         </div>
 
-        <div class="card shadow">
+        {{-- <div class="card shadow">
             <div class="card-header d-flex justify-content-between bg-secondary-subtle">
                 <h5 class="d-flex align-items-center">
                     Role Pengguna
@@ -152,7 +157,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> --}}
 
     </div>
     {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
