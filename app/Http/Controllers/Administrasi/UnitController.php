@@ -50,5 +50,11 @@ class UnitController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        // Unit::where('id', $id)->delete();
+
+    }
+
 
 }

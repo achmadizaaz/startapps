@@ -42,6 +42,7 @@ Route::controller(UnitController::class)->prefix('administrasi')->group(function
     Route::post('/unit/store', 'store')->name('admin.unit.store');
     Route::get('/unit/{slug}/edit', 'edit')->name('admin.unit.edit');
     Route::put('/unit/{slug}/update', 'update')->name('admin.unit.update');
+    Route::delete('/unit/{id}/delete', 'destroy')->name('admin.unit.destroy');
 });
 
 

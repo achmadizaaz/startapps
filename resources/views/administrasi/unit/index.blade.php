@@ -23,8 +23,22 @@
                         <td>{{ $unit->kode_unit }}</td>
                         <td>{{ $unit->nama_unit }}</td>
                         <td>
-                            <a href="{{ route('admin.unit.edit', $unit->slug) }}" class="btn btn-sm btn-warning text-white" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                            <a href="#" class="btn btn-sm btn-danger" title="Hapus"><i class="bi bi-trash"></i></a>
+                            <div class="d-flex jutify-content-between">
+
+                                <a href="{{ route('admin.unit.edit', $unit->slug) }}" class="btn btn-sm btn-warning text-white me-1" title="Edit">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <form method="POST" action="{{ route('admin.unit.destroy', $unit->id) }}">
+                                    @csrf
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" id="namaUnit" value="{{ $unit->nama_unit }}">
+                                    <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                                
                         </td>
                     </tr>
                     @endforeach
@@ -50,4 +64,35 @@
         $('#example').DataTable();
     });
    </script>
+
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+ 
+    $('.show_confirm').click(function(event) {
+         let form =  $(this).closest("form");
+         let name = $(this).data("name");
+         let nameValue = document.getElementById("namaUnit").value;
+         event.preventDefault();
+           Swal.fire({
+                title: 'Are you sure?',
+                text: nameValue,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+            })
+     });
+ 
+</script>
 @endsection
