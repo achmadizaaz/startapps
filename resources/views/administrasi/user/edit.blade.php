@@ -12,8 +12,10 @@
                 <div class="user-detail mb-4 text-secondary">
                     Detail Pengguna (user)
                 </div>
-                <form action="{{ route('admin.user.store') }}" method="POST">
+                <form action="{{ route('admin.user.update', $user->slug) }}" method="POST">
                     @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" value="{{ $user->id }}">
                     <div class="row">
                         {{-- Kolom Form Sebelah Kiri  --}}
                         <div class="col-md-6 fw-bold">
@@ -22,7 +24,7 @@
                                     <label for="name" class="form-label" >Nama Pengguna  <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nama Pengguna">
+                                    <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}" placeholder="Nama Pengguna">
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
@@ -30,18 +32,26 @@
                                     <label for="email" class="form-label" >Username / Email  <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="email@unmerpas.ac.id">
+                                    <input type="text" class="form-control" name="email" value="{{ old('email', $user->email) }}" placeholder="email@unmerpas.ac.id">
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
-                                    <label for="password" class="form-label" >Sandi Pengguna <span class="text-danger">*</span> </label>
+                                    <label for="password" class="form-label" >Sandi Pengguna </label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="********">
+                                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Change password">
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
+                                <div class="col-md-5">
+                                    <label for="pengawai" class="form-label" >Pengawai/Dosen</label>
+                                </div>
+                                <div class="col-md-7" >
+                                    <input type="text" class="form-control" name="pengawai_id" value="{{ old('pengawai') }}">
+                                </div>
+                            </div>
+                            {{-- <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
                                     <label for="role" class="col-md-6">Role <span class="text-danger">*</span></label>
                                 </div>
@@ -53,7 +63,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                            
                         </div>
                         {{-- END Kolom Form Kiri --}}
@@ -66,23 +76,16 @@
                                     <label for="password_default" class="form-label" >Sandi Default</label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="password_default" value="{{ old('password_default') }}">
+                                    <input type="text" class="form-control" name="password_default" value="{{ old('password_default', $user->password_default) }}">
                                 </div>
                             </div>
-                            <div class="row py-2 border-bottom">
-                                <div class="col-md-5">
-                                    <label for="pengawai" class="form-label" >Pengawai/Dosen</label>
-                                </div>
-                                <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="pengawai_id" value="{{ old('pengawai') }}">
-                                </div>
-                            </div>
+                           
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
                                     <label class="form-label" >Login terakhir</label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input class="form-control" value="{{ old('last_login_at') }}" disabled>
+                                    <input class="form-control" value="{{ old('last_login_at', $user->last_login_at) }}" disabled>
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
@@ -90,7 +93,7 @@
                                     <label class="form-label" >IP terakhir</label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input class="form-control" value="{{ old('last_login_ip') }}" disabled>
+                                    <input class="form-control" value="{{ old('last_login_ip', $user->last_login_ip) }}" disabled>
                                 </div>
                             </div>
                         </div>

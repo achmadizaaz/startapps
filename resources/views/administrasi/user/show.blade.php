@@ -2,13 +2,33 @@
 {{-- @section('title', 'Dashboard Administrasi') --}}
 @section('content')
     <div class="container p-2 mb-3">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-check-circle"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if(session('failed'))
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-exclamation-triangle"></i> {{ session('failed') }}
+            <button type="button" class="btn-sm btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
         <div class="card">
             <div class="card-header d-flex justify-content-between align-middle bg-secondary-subtle">
                 <h5>Data Pengguna</h5>
                 <div class="text-end">
                     <a href="{{ route('admin.user') }}" class="btn btn-md btn-info text-white">Kembali ke Daftar</a>
                     <a href="{{ route('admin.user.edit', $user->slug) }}" class="btn btn-md btn-warning text-white">Edit</a>
-                    <button class="btn btn-md btn-danger">Hapus</button>
+                    <form method="POST" action="{{ route('admin.user.destroy', $user->id) }}">
+                        @csrf
+                        <input name="_method" type="hidden" value="DELETE">
+                        <input type="hidden" id="namaUnit" value="{{ $user->name }}" >
+                        <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" data-username="{{ $user->name }}" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">
@@ -49,14 +69,14 @@
                                     {{ $user->email }}
                                 </div>
                             </div>
-                            <div class="row py-2 border-bottom">
+                            {{-- <div class="row py-2 border-bottom">
                                 <div class="col-md-5 fw-bold">
                                     <label for="role" class="form-label">Role</label>
                                 </div>
                                 <div class="col-md-7" >
                                     {{ $user->roles[0]->name }}
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5 fw-bold">
                                     <label for="pengawai" class="form-label" >Pengawai/Dosen</label>
@@ -162,4 +182,33 @@
     </div>
     {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script> --}}
+
+
+
+<script>
+    //  DELETE USER - SWEERALERT2
+    $('.delete_confirm').click(function(event) {
+         let form =  $(this).closest("form");
+         let name = $(this).data("name");
+         let userName = $(this).data('username');
+
+         event.preventDefault();
+           Swal.fire({
+                title: 'HAPUS DATA',
+                html: "Apakah anda ingin menghapus pengguna: <b>"+userName+"</b>",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+     });
+
+</script>
+
 @endsection

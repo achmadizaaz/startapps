@@ -82,6 +82,22 @@ class AdministrasiController extends Controller
         return view('administrasi.user.edit', compact('user'));
     }
 
+    public function userUpdate(Request $request)
+    {
+        $user = User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'password_default' => $request->password_default
+        ]);
+
+        $find = User::where('id', $request->id)->first();
+        // dd($find);
+
+        return redirect()->route('admin.user.show', $find->slug)->with('success', 'Data pengguna berhasil diperbarui');
+        
+    }
+
     public function userDestroy($id)
     {
         User::where('id', $id)->delete();
@@ -96,20 +112,30 @@ class AdministrasiController extends Controller
        $user = User::where('id', $id)->first();
 
        if(empty($user->password_default)){
-        return redirect()->route('admin.user')->with('warning', 'Katasandi default belum ada');
+        return redirect()->route('admin.user')->with('failed', $user->name. ' : Katasandi default belum disetting');
        }
 
         // Make Hash Password Default
        $user->sandi_default = Hash::make($user->password_default);
-
+       
        User::where('id', $id)->update([
         'password' => $user->sandi_default
        ]);
 
-        dd($user->sandi_default);
-
-       return redirect()->route('admin.user')->with('success', 'Reset katasandi berhasil');
+       return redirect()->route('admin.user')->with('success', $user->name. ': Reset katasandi telah berhasil dilakukan');
 
     }
 
+    public function userRole($slug)
+    {
+        $role = 'Ini halaman role by user';
+
+        return view('administrasi.user.role', compact('role'));
+    }
+
+
+
+
+
+    // END CONTROLLER
 }

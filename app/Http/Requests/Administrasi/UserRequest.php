@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Administrasi;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -24,7 +25,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'unique:users', ],
             'name' => ['required'],
             'password' => ['required', 'min:7'],
             'name' => ['required'],

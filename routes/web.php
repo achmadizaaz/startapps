@@ -31,7 +31,9 @@ Route::controller(AdministrasiController::class)->prefix('administrasi')->group(
     Route::post('/users/create', 'userStore')->name('admin.user.store');
     Route::get('/users/{slug}/show', 'userShow')->name('admin.user.show');
     Route::get('/users/{slug}/edit', 'userEdit')->name('admin.user.edit');
-
+    Route::put('/users/{slug}/update', 'userUpdate')->name('admin.user.update');
+    Route::get('/users/{slug}/role', 'userRole')->name('admin.user.role');
+    
     Route::delete('/users/{slug}/delete', 'userDestroy')->name('admin.user.destroy');
     Route::put('/users/{id}/reset', 'userReset')->name('admin.user.reset');
 
