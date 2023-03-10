@@ -25,14 +25,20 @@
                                 </div>
                                 <div class="col-md-7" >
                                     <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}" placeholder="Nama Pengguna">
+                                    @error('name')
+                                     <small class="text-danger fst-italic">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
-                                    <label for="email" class="form-label" >Username / Email  <span class="text-danger">*</span> </label>
+                                    <label for="email" class="form-label" >Username / Email </label>
                                 </div>
                                 <div class="col-md-7" >
-                                    <input type="text" class="form-control" name="email" value="{{ old('email', $user->email) }}" placeholder="email@unmerpas.ac.id">
+                                    <input type="text" class="form-control" value="{{ $user->email }}" placeholder="email@unmerpas.ac.id" disabled>
+                                    @error('email')
+                                     <small class="text-danger fst-italic">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row py-2 border-bottom">
@@ -43,6 +49,7 @@
                                     <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Change password">
                                 </div>
                             </div>
+                            
                             <div class="row py-2 border-bottom">
                                 <div class="col-md-5">
                                     <label for="pengawai" class="form-label" >Pengawai/Dosen</label>

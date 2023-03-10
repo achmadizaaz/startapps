@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Administrasi;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrasi\UserRequest;
+use App\Http\Requests\Administrasi\UserUpdateRequest;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Models\Role;
 
 class AdministrasiController extends Controller
 {
@@ -46,16 +46,12 @@ class AdministrasiController extends Controller
     }
 
     public function userStore(UserRequest $request)
-    {
-        $now = Carbon::now();
-        
+    {       
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'password_default' => $request->password_default,
-            'created_at' => $now,
-            'updated_at' => $now,
         ]);
         
         if(!empty($request->role))
@@ -82,19 +78,20 @@ class AdministrasiController extends Controller
         return view('administrasi.user.edit', compact('user'));
     }
 
-    public function userUpdate(Request $request)
+    public function userUpdate(UserUpdateRequest $request)
     {
-        $user = User::where('id', $request->id)->update([
+        $user = User::where('id', $request->id)->first();
+        $user->slug = null;
+        $user->update([
             'name' => $request->name,
-            'email' => $request->email,
             'password' => Hash::make($request->password),
             'password_default' => $request->password_default
         ]);
 
-        $find = User::where('id', $request->id)->first();
+        
         // dd($find);
 
-        return redirect()->route('admin.user.show', $find->slug)->with('success', 'Data pengguna berhasil diperbarui');
+        return redirect()->route('admin.user.show', $user->slug)->with('success', 'Data pengguna berhasil diperbarui');
         
     }
 
@@ -128,9 +125,9 @@ class AdministrasiController extends Controller
 
     public function userRole($slug)
     {
-        $role = 'Ini halaman role by user';
+        $roles = Role::all();
 
-        return view('administrasi.user.role', compact('role'));
+        return view('administrasi.user.role', compact('roles'));
     }
 
 

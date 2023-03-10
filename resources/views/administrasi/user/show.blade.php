@@ -40,12 +40,12 @@
                         <div class="col-2 d-flex flex-column flex-shrink-0 border-end border-2 border-light">
                             <ul class="nav nav-pills flex-column mb-auto fw-bold" style="font-size:12px">
                                 <li class="nav-item bg-dark border-start border-3 border-primary">
-                                    <a href="#" class="nav-link text-white ">
+                                    <a href="{{ route('admin.user.show', $user->slug) }}" class="nav-link text-white ">
                                         Data Pengguna
                                     </a>
                                 </li>
                                 <li class="nav-item bg-secondary border-start border-3 border-secondary hover ">
-                                    <a href="#" class="nav-link text-white">
+                                    <a href="{{ route('admin.user.role', $user->slug) }}" class="nav-link text-white">
                                     Role Pengguna
                                     </a>
                                 </li>
