@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Administrasi\AdministrasiController;
 use App\Http\Controllers\Administrasi\UnitController;
+use App\Http\Controllers\Sdm\Pengawai;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,15 @@ Route::controller(UnitController::class)->prefix('administrasi')->group(function
     Route::delete('/unit/{id}/delete', 'destroy')->name('admin.unit.destroy');
 });
 
+
+
+
+
+
+// SDM
+Route::controller(Pengawai::class)->prefix('sdm')->group(function(){
+    Route::get('/store', 'store')->name('smd.store');
+});
 
 
 Route::get('/dashboard', function () {
