@@ -23,9 +23,8 @@
                 <h5>Data Pengguna</h5>
                 <div class="text-end">
                     <a href="#" class="btn btn-md btn-info text-white">Kembali ke Daftar</a>
-                    <button class="btn btn-md btn-success text-white" id="tambah-select">Tambah</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Launch demo modal
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#RoleUnitModal">
+                        <i class="bi bi-person-plus-fill"></i> Tambah
                     </button>
 
                     <!-- Modal -->
@@ -35,7 +34,7 @@
             </div>
             
             {{-- MODAL --}}
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="RoleUnitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -45,7 +44,7 @@
                     <form action="{{ route('admin.user.role.tambah', $user->slug) }}" method="POST" >
                         @csrf
                         <div class="modal-body">
-                                <input type="text" value="{{ $user->id }}" name="user_id">
+                                <input type="hidden" value="{{ $user->id }}" name="user_id">
                                 <div class="mb-3">
                                     <label for="role_id" class="form-label fw-bold">Role</label>
                                     <select name="role_id" id="" class="form-select" style="width: 100%" required>
@@ -80,13 +79,13 @@
                     <div class="row">
                         <div class="col-2 border-end border-2 border-light">
                             <ul class="nav nav-pills flex-column mb-auto fw-bold" style="font-size:12px">
-                                <li class="nav-item bg-secondary border-start border-3 border-secondary hover ">
-                                    <a href="#" class="nav-link text-white ">
+                                <li class="nav-item bg-secondary border-start border-3 border-primary">
+                                    <a href="{{ route('admin.user.show', $user->slug) }}" class="nav-link text-white ">
                                         Data Pengguna
                                     </a>
                                 </li>
-                                <li class="nav-item bg-dark border-start border-3 border-primary">
-                                    <a href="#" class="nav-link text-white">
+                                <li class="nav-item bg-dark border-start border-3 border-secondary hover ">
+                                    <a href="{{ route('admin.user.role', $user->slug) }}" class="nav-link text-white">
                                     Role Pengguna
                                     </a>
                                 </li>
@@ -130,11 +129,11 @@
                                                 <td>{{ $roleUnit->role->name}}</td>
                                                 <td>{{ $roleUnit->unit->nama_unit }}</td>
                                                 <td>
-                                                    <form method="POST" action="{{ route('admin.user.destroy', $user->id) }}">
+                                                    <form method="POST" action="{{ route('admin.user.role.destroy', $roleUnit->id) }}">
                                                         @csrf
                                                         <input name="_method" type="hidden" value="DELETE">
                                                         <input type="hidden" id="namaUnit" value="{{ $user->name }}" >
-                                                        <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" data-username="{{ $user->name }}" title="Hapus">
+                                                        <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" data-role="{{ $roleUnit->role->name }}" data-unit="{{ $roleUnit->unit->nama_unit }}" title="Hapus">
                                                             <i class="bi bi-trash"></i>
                                                         </button>
                                                     </form>
@@ -160,10 +159,34 @@
             $('.form-select').select2({
                 theme: 'bootstrap-5',
                 placeholder: "Cari dan Pilih",
-                dropdownParent:$('#exampleModal'),
+                dropdownParent:$('#RoleUnitModal'),
             });
         
         });     
 
+
+        //  DELETE - SWEERALERT2
+    $('.delete_confirm').click(function(event) {
+         let form =  $(this).closest("form");
+         let name = $(this).data("name");
+         let dataRole = $(this).data('role');
+         let dataunit = $(this).data('unit');
+
+         event.preventDefault();
+           Swal.fire({
+                title: 'HAPUS DATA',
+                html: "Anda yakin ingin menghapus role unit pengguna: <br/><b>"+dataRole+"</b>/<b>"+dataunit+"</b>",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+     });
     </script>
 @endsection

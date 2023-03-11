@@ -152,9 +152,21 @@ class AdministrasiController extends Controller
             'unit_id' => $request->unit_id,
         ]);
 
-        return back()->with('success', 'Role Pengguna berhasil ditambahkan');
+        return back()->with('success', 'Role dan Unit Pengguna berhasil ditambahkan');
     }
 
+
+    public function UserDestroyRole($id)
+    {
+        $roleUnit = RoleUnit::find($id);
+
+        $user = User::find($roleUnit->user_id);
+        $user->removeRole($roleUnit->role->name);
+
+        $roleUnit->delete();
+
+        return back()->with('success', 'Role unit pengguna telah dihapus');
+    }
 
 
     // END CONTROLLER

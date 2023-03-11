@@ -34,6 +34,7 @@ Route::controller(AdministrasiController::class)->prefix('administrasi')->group(
     Route::put('/users/{slug}/update', 'userUpdate')->name('admin.user.update');
     Route::get('/users/{slug}/role', 'userRole')->name('admin.user.role');
     Route::post('/users/{slug}/role', 'UserTambahRole')->name('admin.user.role.tambah');
+    Route::delete('/users/{id}/role', 'UserDestroyRole')->name('admin.user.role.destroy');
     
     Route::delete('/users/{slug}/delete', 'userDestroy')->name('admin.user.destroy');
     Route::put('/users/{id}/reset', 'userReset')->name('admin.user.reset');
