@@ -25,4 +25,9 @@ class Unit extends Model
             ]
         ];
     }
+
+    public function RoleUnit()
+    {
+        return  $this->hasMany(RoleUnit::class)->withDefault();
+    }
 }

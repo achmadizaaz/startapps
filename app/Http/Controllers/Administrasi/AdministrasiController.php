@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrasi\UserRequest;
 use App\Http\Requests\Administrasi\UserUpdateRequest;
 use App\Models\User;
+use App\Models\Administrasi\Unit;
+use App\Models\Administrasi\RoleUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -126,11 +128,32 @@ class AdministrasiController extends Controller
     public function userRole($slug)
     {
         $roles = Role::all();
+        $units = Unit::all();
+       
+        $user = User::where('slug', $slug)->first();
 
-        return view('administrasi.user.role', compact('roles'));
+        $roleUnits = RoleUnit::where('user_id', $user->id)->get();
+
+        // dd($units);
+        return view('administrasi.user.role', compact('roles', 'units', 'user', 'roleUnits'));
     }
 
+    public function UserTambahRole(Request $request)
+    {
+        $role = Role::find($request->role_id);
 
+        $user = User::find($request->user_id);
+
+        $user->assignRole($role);
+
+        RoleUnit::create([
+            'user_id' => $request->user_id,
+            'role_id' => $request->role_id,
+            'unit_id' => $request->unit_id,
+        ]);
+
+        return back()->with('success', 'Role Pengguna berhasil ditambahkan');
+    }
 
 
 

@@ -41,17 +41,18 @@
                         
                         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="{{ route('admin.index') }}" class="nav-link px-2 text-white">Dashboard</a></li>
-                        <li><a href="{{ route('admin.user') }}" class="nav-link px-2 text-white">Pengguna</a></li>
-                        <li><a href="{{ route('admin.unit') }}" class="nav-link px-2 text-white">Unit</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">Laporan</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown07XL" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown07XL" data-bs-toggle="dropdown" aria-expanded="false">Pengguna</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown07XL">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                              <li><a class="dropdown-item" href="{{ route('admin.user') }}">User</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Role</a></li>
+                              <li><a class="dropdown-item" href="#">Hak Akses</a></li>
                             </ul>
                           </li>
+                        <li><a href="{{ route('admin.unit') }}" class="nav-link px-2 text-white">Unit</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">Laporan</a></li>
+                        
                         </ul>
 
                         <div class="text-end text-light px-2">

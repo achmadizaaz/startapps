@@ -18,15 +18,19 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-middle bg-secondary-subtle">
                 <h5>Data Pengguna</h5>
-                <div class="text-end">
-                    <a href="{{ route('admin.user') }}" class="btn btn-md btn-info text-white">Kembali ke Daftar</a>
-                    <a href="{{ route('admin.user.edit', $user->slug) }}" class="btn btn-md btn-warning text-white">Edit</a>
+                <div class="text-end d-flex justify-content-between">
+                    <a href="{{ route('admin.user') }}" class="btn btn-md btn-info text-white me-1">
+                        Kembali ke Daftar
+                    </a>
+                    <a href="{{ route('admin.user.edit', $user->slug) }}" class="btn btn-md btn-warning text-white me-1 fw-bold">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
                     <form method="POST" action="{{ route('admin.user.destroy', $user->id) }}">
                         @csrf
                         <input name="_method" type="hidden" value="DELETE">
                         <input type="hidden" id="namaUnit" value="{{ $user->name }}" >
-                        <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" data-username="{{ $user->name }}" title="Hapus">
-                            <i class="bi bi-trash"></i>
+                        <button type="submit" class="btn btn-danger btn-flat delete_confirm fw-bold" data-username="{{ $user->name }}" title="Hapus">
+                            <i class="bi bi-trash"></i> Hapus
                         </button>
                     </form>
                 </div>

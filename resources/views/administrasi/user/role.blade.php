@@ -23,15 +23,59 @@
                 <h5>Data Pengguna</h5>
                 <div class="text-end">
                     <a href="#" class="btn btn-md btn-info text-white">Kembali ke Daftar</a>
-                    <a href="#" class="btn btn-md btn-success text-white">Tambah</a>
-                    <button class="btn btn-primary btn-sm mt-2" id="tambah-role">
-                        Add Field
+                    <button class="btn btn-md btn-success text-white" id="tambah-select">Tambah</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
                     </button>
-                    <button class="btn btn-primary btn-sm mt-2" id="tambah-select">
-                        Add Select
-                    </button>
+
+                    <!-- Modal -->
+                   
+
                 </div>
             </div>
+            
+            {{-- MODAL --}}
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Role Pengguna</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('admin.user.role.tambah', $user->slug) }}" method="POST" >
+                        @csrf
+                        <div class="modal-body">
+                                <input type="text" value="{{ $user->id }}" name="user_id">
+                                <div class="mb-3">
+                                    <label for="role_id" class="form-label fw-bold">Role</label>
+                                    <select name="role_id" id="" class="form-select" style="width: 100%" required>
+                                        <option></option>
+                                        @foreach ($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="unit_id" class="form-label fw-bold">Unit Kerja</label>
+                                    <select name="unit_id" id="" class="form-select" style="width: 100%" required>
+                                        <option></option>
+                                        @foreach ($units as $unit)
+                                        <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                </form>
+                </div>
+                </div>
+            </div>
+            {{-- END MODAL --}}
+
             <div class="card-body">
                     <div class="row">
                         <div class="col-2 border-end border-2 border-light">
@@ -55,13 +99,13 @@
                                         Nama Pengguna
                                     </div>
                                     <div class="col-md-4 text-white">
-                                        User Unit
+                                        {{ $user->name }}
                                     </div>
                                     <div class="col-md-2 text-white">
                                         Alamat Email
                                     </div>
                                     <div class="col-md-4 text-white">
-                                        alamat-email@unmerpas.ac.id
+                                        {{ $user->email }}
                                     </div>
                                 </div>
                                 
@@ -77,45 +121,31 @@
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <div id="input-role">
+                                        <tbody> 
+                                            
+                                            @foreach ($roleUnits as $roleUnit)
                                                 
-                                            </div>
-
-                                            {{-- <div id="input-select">
-                                                <form action="">
-
-                                                </form>
-                                            </div> --}}
-                                            
-                                            
-                                                <tr id="input-select">
-                                                    <form action="" id="form-select">
-
+                                            <tr>
+                                                
+                                                <td>{{ $roleUnit->role->name}}</td>
+                                                <td>{{ $roleUnit->unit->nama_unit }}</td>
+                                                <td>
+                                                    <form method="POST" action="{{ route('admin.user.destroy', $user->id) }}">
+                                                        @csrf
+                                                        <input name="_method" type="hidden" value="DELETE">
+                                                        <input type="hidden" id="namaUnit" value="{{ $user->name }}" >
+                                                        <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" data-username="{{ $user->name }}" title="Hapus">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
                                                     </form>
-                                                </tr>
-                                            
-                                            <tr>
-                                                
-                                                <td>Administrasi</td>
-                                                <td>Universitas Merdeka Pasuruan</td>
-                                                <td>Edit</td>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                
-                                                <td>Admin Sarpras</td>
-                                                <td>Universitas Merdeka Pasuruan</td>
-                                                <td>Edit</td>
-                                            </tr>
+                                            @endforeach
+                                                                                    
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <select class="js-example-basic-single" name="state">
-                                @foreach ($roles as $role)
-                                    <option value="$role->name">{{ $role->name  }}</option>
-                                @endforeach
-                              </select>
                         </div>
                  </div>
                  
@@ -126,97 +156,14 @@
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
    <script>
-
-    
-      $(document).ready(function() {
-            $('.js-example-basic-single').select2();
-        });
-
-
-    let arrayRole = [
-                    @foreach ($roles as $role)
-                        [ "{{ $role->name }}" ], 
-                    @endforeach
-                ];
-    
-
-
-         let form = document.getElementById('form-select')
-
-        let addSelect = document.getElementById('tambah-select');
-        let optionSelect = document.getElementById('input-select');
-        let countClick = 1;
-        let countInput = 0;
-        optionSelect.appendChild(form);
-
-        addSelect.onclick = function () {
-            if (countInput < 1) {
-
-                let td = document.createElement('td')
-                // tr.setAttribute('class', 'mb-2');
-                // let td = document.createElement('td')
-                let select = document.createElement("select");
-                select.setAttribute('class', 'mt-2 form-select');
-                select.setAttribute('id', 'select-' + countClick);
-                select.setAttribute('data-placeholder', 'Choose one thing');
-                optionSelect.appendChild(td);
-                td.appendChild(select);
-                // tr.appendChild(optionSelect);
-
-                let selectInputField = document.getElementById("select-" + countClick)
-                
-                let option = document.createElement('option')
-                selectInputField.add(option)
-                for (let i = 0; i < arrayRole.length; i++) {
-                    let option = document.createElement('option')
-                    option.setAttribute('value', arrayRole[i])
-                    option.text = arrayRole[i];
-                    selectInputField.add(option, selectInputField[i])
-                    // optionSelect.appendChild(option)
-                }
-                countClick++
-
-                $(document).ready(function() {
-                    $('.form-select').select2({
-                        theme: 'bootstrap-5',
-                        selectionCssClass: "select2--small",
-                        dropdownCssClass: "select2--small",
-                    });
-                
-                });
-            }
-            countInput++;
-        }
-
-                // Single Input
-
-    // let tambahRole = document.getElementById("tambah-role");
-    // let inputRole = document.getElementById("input-role");
-
-    // let countInput = 0;
-
-    //  tambahRole.onclick = function () {
-    //         if (countInput < 1) {
-
-    //             let tr = document.createElement('tr')
-    //             let td
-
-    //             let input = document.createElement("input");
-    //             input.setAttribute("type", "text");
-    //             input.setAttribute("name", "nama[]");
-    //             input.setAttribute("class", "form-control mb-2");
-    //             input.setAttribute("placeholder", "Hobi lainnya");
-    //             tr.appendChild(input);
-                
-    //             inputRole.appendChild(tr)// 
-                
-    //             countInput++;
-    //         }
-    //     };
-
-
-      
-
+        $(document).ready(function() {
+            $('.form-select').select2({
+                theme: 'bootstrap-5',
+                placeholder: "Cari dan Pilih",
+                dropdownParent:$('#exampleModal'),
+            });
+        
+        });     
 
     </script>
 @endsection

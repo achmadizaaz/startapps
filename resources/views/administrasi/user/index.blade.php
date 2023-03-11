@@ -17,7 +17,9 @@
 
         <div class="d-flex  justify-content-between mb-3 p-3">
             <h4>DAFTAR USER</h4>
-            <a href="{{ route('admin.user.create') }}" class="btn btn-success">Tambah Pengguna</a>
+            <a href="{{ route('admin.user.create') }}" class="btn btn-success">
+                <i class="bi bi-person-plus-fill"></i> Tambah
+            </a>
         </div>
         <div class=" bg-light p-4 rounded-3 shadow">
             {{ session('kodeUnit') }}
