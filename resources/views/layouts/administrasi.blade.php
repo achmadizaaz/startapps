@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Administration Application') }}</title>
+        <title>
+            @yield('title-page', config('app.name'))
+        </title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -82,10 +84,18 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="dropdown07XL" data-bs-toggle="dropdown" aria-expanded="false">Pengguna</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown07XL">
+                                @can('read user-administrasi')
                                 <li><a class="dropdown-item" href="{{ route('admin.user') }}">User</a></li>
+                                @endcan
+                                
+                                @can('read role-administrasi')
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.role') }}">Role</a></li>
+                                @endcan
+                                
+                                @can('read permission-administrasi')
                                 <li><a class="dropdown-item" href="{{ route('admin.permission') }}">Permission</a></li>
+                                @endcan
                             </ul>
                         </li>
                         <li><a href="{{ route('admin.unit') }}" class="nav-link px-2 text-dark">Unit</a></li>

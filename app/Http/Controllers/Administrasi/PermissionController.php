@@ -9,8 +9,16 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+        $this->middleware(['can:read permission-adminsitrasi']);
+    }
+
     public function index()
     {
+
         $permissions = Permission::all();
         return view('administrasi.permission.index', compact('permissions'));
     }

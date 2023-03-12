@@ -33,9 +33,13 @@
             <div class="row py-4"  >
               <div class="col-md-6 col-lg-6 d-none d-md-block">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                  
+                  @can('administrasi-modul')
                   <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Administrasi Aplikasi</button>
                   </li>
+                  @endcan
+
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
                   </li>
@@ -49,9 +53,8 @@
                   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <h4>DAFTAR ROLE</h4> 
                     <div class="small">Administrasi Aplikasi</div>
-                    @can('Super Administrator')
+                    @can('administrasi-modul')
                       <a href="{{ route('admin.index') }}">Super Administrator</a>
-                    
                     @endcan
                   </div>
                   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>

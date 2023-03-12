@@ -19,26 +19,59 @@ class PermissionsSeeder extends Seeder
          // Reset cached roles and permissions
          app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
-        Permission::create(['name' => 'administrasi-modul']);
+        //  create permission modul
+         Permission::create(['name' => 'administrasi-modul']);
+        //  Permission::create(['name' => 'sarpras-modul']);
 
-        Permission::create(['name' => 'create user-information']);
-        Permission::create(['name' => 'read user-information']);
-        Permission::create(['name' => 'update user-information']);
-        Permission::create(['name' => 'delete user-information']);
+        // PERMISSION ADMINISTRASI
+        // user
+        Permission::create(['name' => 'create user-administrasi']);
+        Permission::create(['name' => 'read user-administrasi']);
+        Permission::create(['name' => 'update user-administrasi']);
+        Permission::create(['name' => 'delete user-administrasi']);
+        // unit
+        Permission::create(['name' => 'create unit-administrasi']);
+        Permission::create(['name' => 'read unit-administrasi']);
+        Permission::create(['name' => 'update unit-administrasi']);
+        Permission::create(['name' => 'delete unit-administrasi']);
+        // role 
+        Permission::create(['name' => 'create role-administrasi']);
+        Permission::create(['name' => 'read role-administrasi']);
+        Permission::create(['name' => 'update role-administrasi']);
+        Permission::create(['name' => 'delete role-administrasi']);
+        // permission
+        Permission::create(['name' => 'create permission-administrasi']);
+        Permission::create(['name' => 'read permission-administrasi']);
+        Permission::create(['name' => 'update permission-administrasi']);
+        Permission::create(['name' => 'delete permission-administrasi']);
+
+        // END PERMISSION ADMINISTRASI
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'Super Administrator']);
 
         $role2 = Role::create(['name' => 'Administrator']);
+
         $role2->givePermissionTo('administrasi-modul');
-        $role2->givePermissionTo('create user-information');
-        $role2->givePermissionTo('read user-information');
-        $role2->givePermissionTo('update user-information');
-        $role2->givePermissionTo('delete user-information');
+        $role2->givePermissionTo('create user-administrasi');
+        $role2->givePermissionTo('read user-administrasi');
+        $role2->givePermissionTo('update user-administrasi');
+        $role2->givePermissionTo('delete user-administrasi');
+        
+        $role2->givePermissionTo('create unit-administrasi');
+        $role2->givePermissionTo('read unit-administrasi');
+        $role2->givePermissionTo('update unit-administrasi');
+        $role2->givePermissionTo('delete unit-administrasi');
+
+        $role2->givePermissionTo('create role-administrasi');
+        $role2->givePermissionTo('read role-administrasi');
+        $role2->givePermissionTo('update role-administrasi');
+        $role2->givePermissionTo('delete role-administrasi');
+
 
         $role3 = Role::create(['name' => 'Unit']);
-        $role3->givePermissionTo('read user-information');
+        // $role3->givePermissionTo('administrasi-modul');
+        $role3->givePermissionTo('read user-administrasi');
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 

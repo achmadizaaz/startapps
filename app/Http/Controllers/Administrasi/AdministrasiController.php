@@ -10,8 +10,8 @@ class AdministrasiController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware(['role:Super Administrator|Administrator']);
+        // $this->middleware('auth');
+        // $this->middleware(['can:administrasi-modul']);
     }
 
     public function index()

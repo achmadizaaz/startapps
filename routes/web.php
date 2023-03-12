@@ -25,11 +25,10 @@ Route::get('/', function () {
 
 
 // ROUTE APLIKASI ADMINISTRASI
-Route::prefix('administrasi')->group(function(){
+Route::prefix('administrasi')->middleware(['auth','can:administrasi-modul'])->group(function(){
 
     Route::get('/', [AdministrasiController::class, 'index'])->name('admin.index');
     
-
     // USER CONTROLLER
     Route::controller(UserController::class)->group(function(){
         Route::get('/users', 'userIndex')->name('admin.user');

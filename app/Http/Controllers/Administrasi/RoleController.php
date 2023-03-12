@@ -9,6 +9,13 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+        $this->middleware(['can:read role-adminsitrasi']);
+    }
+
     public function index()
     {
         $roles = Role::all();

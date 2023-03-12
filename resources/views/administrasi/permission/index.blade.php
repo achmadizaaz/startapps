@@ -16,11 +16,16 @@
         @endif
 
         <div class="d-flex  justify-content-between mb-3 p-3">
-            <h4>DAFTAR ROLE</h4>
+            <h4>DAFTAR PERMISSION</h4>
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#permissionModal">
                 <i class="bi bi-person-plus-fill"></i> Tambah
             </button>
         </div>
+
+        <div class="alert alert-danger alert-dismissiblemt-3" role="alert">
+            <i class="bi bi-exclamation-circle"></i> <b>Warning :</b> Fitur ini hanya untuk kerperluan pengembangan aplikasi.
+        </div>
+
 
         {{-- MODAL --}}
         <div class="modal fade" id="permissionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -54,7 +59,7 @@
                 <thead class="bg-primary text-white fw-bold">
                     <tr>
                         <td>#</td>
-                        <td>Nama Role</td>
+                        <td>Nama Permission</td>
                         <td>Aksi</td>
                     </tr>
                 </thead>
@@ -74,7 +79,7 @@
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
                                         <input type="hidden" id="namaUnit" value="{{ $permission->id }}" >
-                                        <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" title="Hapus" data-permission="{{ $permission->name }}">
+                                        <button type="submit" class="btn btn-sm btn-danger btn-flat delete_confirm" title="Hapus" data-permission="{{ $permission->name }}" disabled>
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
