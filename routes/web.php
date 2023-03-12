@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Administrasi\AdministrasiController;
+use App\Http\Controllers\Administrasi\PermissionController;
 use App\Http\Controllers\Administrasi\UnitController;
+use App\Http\Controllers\Administrasi\UserController;
+use App\Http\Controllers\Administrasi\RoleController;
 use App\Http\Controllers\Sdm\Pengawai;
 use Illuminate\Support\Facades\Route;
 
@@ -21,39 +24,71 @@ Route::get('/', function () {
 });
 
 
-// Administrasi Aplikasi
-Route::controller(AdministrasiController::class)->prefix('administrasi')->group(function(){
+// ROUTE APLIKASI ADMINISTRASI
+Route::prefix('administrasi')->group(function(){
+
+    Route::get('/', [AdministrasiController::class, 'index'])->name('admin.index');
     
-    Route::get('/', 'index')->name('admin.index');
+
+    // USER CONTROLLER
+    Route::controller(UserController::class)->group(function(){
+        Route::get('/users', 'userIndex')->name('admin.user');
+        Route::get('/users/create', 'userCreate')->name('admin.user.create');
+        Route::post('/users/create', 'userStore')->name('admin.user.store');
+        Route::get('/users/{slug}/show', 'userShow')->name('admin.user.show');
+        Route::get('/users/{slug}/edit', 'userEdit')->name('admin.user.edit');
+        Route::put('/users/{slug}/update', 'userUpdate')->name('admin.user.update');
+        Route::get('/users/{slug}/role', 'userRole')->name('admin.user.role');
+        Route::post('/users/{slug}/role', 'UserTambahRole')->name('admin.user.role.tambah');
+        Route::delete('/users/{id}/role', 'UserDestroyRole')->name('admin.user.role.destroy');
+        Route::delete('/users/{slug}/delete', 'userDestroy')->name('admin.user.destroy');
+        Route::put('/users/{id}/reset', 'userReset')->name('admin.user.reset');
+    });
+
+    // END USER CONTROLLER
+
+    // ROLE CONTROLLER
+    Route::controller(RoleController::class)->group(function(){
+        Route::get('/role', 'index')->name('admin.role');
+        Route::get('/role/create', 'create')->name('admin.role.create');
+        Route::post('/role/store', 'store')->name('admin.role.store');
+        Route::delete('/role/{id}/delete', 'destroy')->name('admin.role.destroy');
+    });
+    // END ROLE CONTROLLER
+
+    // PERMISSION CONTROLLER
+    Route::controller(PermissionController::class)->group(function(){
+        Route::get('/permission', 'index')->name('admin.permission');
+        Route::get('/permission/create', 'create')->name('admin.permission.create');
+        Route::post('/permission/store', 'store')->name('admin.permission.store');
+        Route::delete('/permission/{id}/delete', 'destroy')->name('admin.permission.destroy');
+    });
+    // END PERMISSION CONTROLLER
 
 
-    Route::get('/users', 'userIndex')->name('admin.user');
-    Route::get('/users/create', 'userCreate')->name('admin.user.create');
-    Route::post('/users/create', 'userStore')->name('admin.user.store');
-    Route::get('/users/{slug}/show', 'userShow')->name('admin.user.show');
-    Route::get('/users/{slug}/edit', 'userEdit')->name('admin.user.edit');
-    Route::put('/users/{slug}/update', 'userUpdate')->name('admin.user.update');
-    Route::get('/users/{slug}/role', 'userRole')->name('admin.user.role');
-    Route::post('/users/{slug}/role', 'UserTambahRole')->name('admin.user.role.tambah');
-    Route::delete('/users/{id}/role', 'UserDestroyRole')->name('admin.user.role.destroy');
+
+    // UNIT CONTROLLER
+    Route::controller(UnitController::class)->group(function(){
+        Route::get('/unit', 'index')->name('admin.unit');
+        Route::get('/unit/create', 'create')->name('admin.unit.create');
+        Route::post('/unit/store', 'store')->name('admin.unit.store');
+        Route::get('/unit/{slug}/edit', 'edit')->name('admin.unit.edit');
+        Route::put('/unit/{slug}/update', 'update')->name('admin.unit.update');
+        Route::delete('/unit/{id}/delete', 'destroy')->name('admin.unit.destroy');
     
-    Route::delete('/users/{slug}/delete', 'userDestroy')->name('admin.user.destroy');
-    Route::put('/users/{id}/reset', 'userReset')->name('admin.user.reset');
+    });
+    // END UNIT CONTROLLER
 
-
-
-    // Test Store Session
-    Route::post('/users', 'userSession')->name('admin.session');
 });
+// END ROUTE APLIKASI ADMINISTRASI
 
-Route::controller(UnitController::class)->prefix('administrasi')->group(function(){
-    Route::get('/unit', 'index')->name('admin.unit');
-    Route::get('/unit/create', 'create')->name('admin.unit.create');
-    Route::post('/unit/store', 'store')->name('admin.unit.store');
-    Route::get('/unit/{slug}/edit', 'edit')->name('admin.unit.edit');
-    Route::put('/unit/{slug}/update', 'update')->name('admin.unit.update');
-    Route::delete('/unit/{id}/delete', 'destroy')->name('admin.unit.destroy');
+
+// ROUTE APLIKASI SARPRAS
+Route::prefix('sarpras')->group(function(){
+
+
 });
+// END ROUTE APLIKASI SARPRAS
 
 
 

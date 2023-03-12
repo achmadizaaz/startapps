@@ -50,12 +50,8 @@
                     <h4>DAFTAR ROLE</h4> 
                     <div class="small">Administrasi Aplikasi</div>
                     @can('Super Administrator')
-                    <form action="{{ route('admin.session') }}" method="POST">
-                      @csrf
-                      <input type="hidden" name="tesSessionUnit" value="kodeUnit-201">
-                      <input type="hidden" name="tesSessionRole" value="kodeRole-202">
-                      <button type="submit">Super Administrator</button>
-                    </form>
+                      <a href="{{ route('admin.index') }}">Super Administrator</a>
+                    
                     @endcan
                   </div>
                   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
