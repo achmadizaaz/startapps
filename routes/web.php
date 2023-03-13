@@ -74,6 +74,7 @@ Route::prefix('administrasi')->middleware(['auth','can:administrasi-modul'])->gr
         Route::get('/unit/{slug}/edit', 'edit')->name('admin.unit.edit');
         Route::put('/unit/{slug}/update', 'update')->name('admin.unit.update');
         Route::delete('/unit/{id}/delete', 'destroy')->name('admin.unit.destroy');
+        Route::put('/unit/{slug}/primary', 'primary')->name('admin.unit.primary');
     
     });
     // END UNIT CONTROLLER

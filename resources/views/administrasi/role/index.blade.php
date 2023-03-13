@@ -61,7 +61,7 @@
                 <tbody>
                     @foreach ($roles as $role)
                         <tr>
-                            <td>{{$loop->iteration }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $role->name }}</td>
                             <td>
                                 <div class="d-flex jutify-content-between">

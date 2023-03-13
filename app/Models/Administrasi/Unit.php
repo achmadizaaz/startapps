@@ -14,6 +14,7 @@ class Unit extends Model
         'kode_unit',
         'nama_unit',
         'slug',
+        'primary',
     ];
 
 

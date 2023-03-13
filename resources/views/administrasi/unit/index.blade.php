@@ -2,6 +2,12 @@
 {{-- @section('title', 'Dashboard Administrasi') --}}
 @section('content')
    <div class="container p-2 mb-3">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                <i class="bi bi-check-circle"></i> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="d-flex  justify-content-between mb-3 p-3">
             <h4>DAFTAR UNIT</h4>
             <a href="{{ route('admin.unit.create') }}" class="btn btn-success">Tambah Unit</a>
@@ -13,6 +19,7 @@
                         <th>No</th>
                         <th>Kode Unit</th>
                         <th>Nama Unit</th>
+                        <th>Primary</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -22,6 +29,18 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $unit->kode_unit }}</td>
                         <td>{{ $unit->nama_unit }}</td>
+                        <td class="text-center">
+                            <div class="form-check form-switch">
+                                <form method="POST" action="{{ route('admin.unit.primary', $unit->slug) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="slug" value="{{ $unit->slug }}">
+                                    <input class="form-check-input show_primary" name="primary" type="checkbox" data-unit="{{ $unit->nama_unit }}" @if ($unit->primary == 1)
+                                    checked 
+                                    @endif>
+                                </form>
+                              </div>
+                        </td>
                         <td>
                             <div class="d-flex jutify-content-between">
 
@@ -33,7 +52,7 @@
                                     @csrf
                                     <input name="_method" type="hidden" value="DELETE">
                                     <input type="hidden" id="namaUnit" value="{{ $unit->nama_unit }}">
-                                    <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" title="Hapus">
+                                    <button type="submit" class="btn btn-sm btn-danger btn-flat show_confirm" data-unit="{{ $unit->nama_unit }}" title="Hapus">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
@@ -48,6 +67,7 @@
                         <th>No</th>
                         <th>Kode Unit</th>
                         <th>Nama Unit</th>
+                        <th>Primary</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -69,15 +89,35 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
 
 <script type="text/javascript">
- 
-    $('.show_confirm').click(function(event) {
+    // SWEETALERT2 @ PRIMARY
+    $('.show_primary').click(function(event) {
          let form =  $(this).closest("form");
-         let name = $(this).data("name");
-         let nameValue = document.getElementById("namaUnit").value;
+         let name = $(this).data("unit");
          event.preventDefault();
            Swal.fire({
-                title: 'Are you sure?',
-                text: nameValue,
+                title: 'Primary',
+                html: 'Apakah anda ingin mengubah status primary <br/><b>' +name+ ' </b><br/><br/> <small class="fst-italic text-danger"> Status primary tidak bisa banyak</small>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ubah'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+     });
+
+
+    // SWEETALERT2 @ DELETE
+    $('.show_confirm').click(function(event) {
+         let form =  $(this).closest("form");
+         let name = $(this).data("unit");
+         event.preventDefault();
+           Swal.fire({
+                title: 'Delete',
+                html: 'Apakah anda ingin menghapus <br/><b>'+name+ '</b>',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -90,5 +130,7 @@
             })
      });
  
+
+     
 </script>
 @endsection

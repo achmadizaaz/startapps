@@ -25,7 +25,7 @@ class UnitController extends Controller
 
         Unit::create([
             'kode_unit' => $request->kode_unit,
-            'nama_unit' => $request->nama_unit
+            'nama_unit' => $request->nama_unit,
         ]);
 
         return redirect()->route('admin.unit')->with('success', 'Unit berhasil ditambahkan');
@@ -52,7 +52,31 @@ class UnitController extends Controller
 
     public function destroy($id)
     {
-        // Unit::where('id', $id)->delete();
+        Unit::where('id', $id)->delete();
+
+        return back()->with('success', 'Unit berhasil dihapus');
+
+    }
+
+    public function primary(Request $request)
+    {
+
+        // dd($request->primary);
+        
+        // Primary to 1
+        if($request->primary == 'on'){
+            Unit::where('slug', $request->slug)
+                ->update(['primary' => 0]);
+
+            return back()->with('success', 'Status primary telah dinonaktifkan');
+        }
+       
+        Unit::where('primary', 1)
+                ->update(['primary' => 0]);
+
+        Unit::where('slug', $request->slug)->update(['primary' => 1]);
+        
+        return back()->with('success', 'Status primary telah diubah');
 
     }
 

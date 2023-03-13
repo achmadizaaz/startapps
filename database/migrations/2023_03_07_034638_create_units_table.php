@@ -18,6 +18,7 @@ class CreateUnitsTable extends Migration
             $table->string('kode_unit')->unique();
             $table->string('slug')->unique();
             $table->string('nama_unit');
+            $table->string('primary')->default(0);
             $table->timestamps();
         });
     }

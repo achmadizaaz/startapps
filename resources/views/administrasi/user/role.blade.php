@@ -22,7 +22,7 @@
             <div class="card-header d-flex justify-content-between align-middle bg-secondary-subtle">
                 <h5>Data Pengguna</h5>
                 <div class="text-end">
-                    <a href="#" class="btn btn-md btn-info text-white">Kembali ke Daftar</a>
+                    <a href="{{ route('admin.user') }}" class="btn btn-md btn-info text-white">Kembali ke Daftar</a>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#RoleUnitModal">
                         <i class="bi bi-person-plus-fill"></i> Tambah
                     </button>
